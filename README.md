@@ -9,6 +9,10 @@ Integrantes del Grupo 3:
 
 -Argueta Leiva, Kevin Alexander AL202809
 
+Archivo Documentacion:
+[Primer Avance Proyecto G3.pdf](https://github.com/user-attachments/files/16827085/Primer.Avance.Proyecto.G3.pdf)
+
+
 
 Link Trello:
 https://trello.com/b/tAZrhj1k/sistemadeinventarioycontrol-g03
