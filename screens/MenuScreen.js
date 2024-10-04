@@ -8,6 +8,7 @@ export default function MenuScreen({ navigation }) {
       <Button title="Agregar Producto" onPress={() => navigation.navigate('AgregarProducto')} />
       <Button title="Lista de Productos" onPress={() => navigation.navigate('ListaProductos')} />
       <Button title="Balance General" onPress={() => navigation.navigate('BalanceGeneral')} />
+      <Button title="Ventas" onPress={() => navigation.navigate('Ventas')} />
     </View>
   );
 }

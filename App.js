@@ -7,6 +7,7 @@ import MenuScreen from './screens/MenuScreen.js';
 import AgregarProductoScreen from './screens/AgregarProductoScreen.js';
 import ListaProductosScreen from './screens/ListaProductosScreen.js';
 import BalanceGeneralScreen from './screens/BalanceGeneralScreen.js';
+import VentasScreen from './screens/VentasScreen.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ export default function App() {
             <Stack.Screen name="Menu" component={MenuScreen} />
             <Stack.Screen name="AgregarProducto" component={AgregarProductoScreen} />
             <Stack.Screen name="ListaProductos" component={ListaProductosScreen} />
+            <Stack.Screen name="Ventas" component={VentasScreen} />
             <Stack.Screen name="BalanceGeneral" component={BalanceGeneralScreen} />
           </>
         ) : (
