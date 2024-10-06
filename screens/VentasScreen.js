@@ -29,13 +29,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#f0f8ff' // Fondo azul claro
   },
   item: {
     padding: 15,
     marginVertical: 8,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff', // Fondo blanco
+    borderColor: '#4682b4', // Borde azul claro
+    borderWidth: 1,
     borderRadius: 8,
   },
+  text: {
+    color: '#4682b4', // Texto en azul oscuro
+  }
 });
 
 export default VentasRealizadas;

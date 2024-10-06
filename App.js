@@ -30,7 +30,10 @@ export default function App() {
       <Stack.Navigator>
         {isLoggedIn ? (
           <>
-            <Stack.Screen name="Menu" component={MenuScreen} />
+            {/* Se pasa setIsLoggedIn para manejar el logout */}
+            <Stack.Screen name="Menu">
+              {(props) => <MenuScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
+            </Stack.Screen>
             <Stack.Screen name="AgregarProducto" component={AgregarProductoScreen} />
             <Stack.Screen name="ListaProductos" component={ListaProductosScreen} />
             <Stack.Screen name="Ventas" component={VentasScreen} />

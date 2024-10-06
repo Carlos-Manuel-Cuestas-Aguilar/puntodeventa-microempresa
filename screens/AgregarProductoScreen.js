@@ -39,7 +39,33 @@ export default function AgregarProductoScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
-  input: { height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10, paddingLeft: 10 },
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    padding: 20, 
+    backgroundColor: '#f0f8ff' // Fondo azul claro
+  },
+  title: { 
+    fontSize: 24, 
+    marginBottom: 20, 
+    textAlign: 'center', 
+    color: '#4682b4' // Texto azul oscuro
+  },
+  input: { 
+    height: 40, 
+    borderColor: '#4682b4', // Borde azul
+    borderWidth: 1, 
+    marginBottom: 10, 
+    paddingLeft: 10,
+    backgroundColor: '#fff', // Fondo blanco
+    color: '#000' // Texto negro
+  },
+  button: {
+    backgroundColor: '#4682b4', // Botón azul oscuro
+    color: '#fff', // Texto blanco
+    padding: 10,
+    borderRadius: 5,
+    textAlign: 'center',
+    marginTop: 10
+  }
 });

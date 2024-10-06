@@ -26,7 +26,21 @@ export default function ListaProductosScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  item: { padding: 20, borderBottomWidth: 1, borderColor: '#ccc' },
-  title: { fontSize: 18, fontWeight: 'bold' },
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    padding: 20, 
+    backgroundColor: '#f0f8ff' // Fondo azul claro
+  },
+  item: { 
+    padding: 20, 
+    borderBottomWidth: 1, 
+    borderColor: '#4682b4', // Borde azul oscuro
+    backgroundColor: '#fff', // Fondo blanco
+  },
+  title: { 
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    color: '#4682b4' // Texto azul oscuro
+  },
 });
