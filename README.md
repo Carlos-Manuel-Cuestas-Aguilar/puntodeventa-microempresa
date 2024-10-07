@@ -25,3 +25,7 @@ Licencia:
 CC BY-NC (Atribución-NoComercial)
 
 ![image](https://github.com/user-attachments/assets/86816208-f9ec-4aa2-b796-e01c0cb70ca8)
+--manuales de usuario 
+https://www.canva.com/design/DAGS0SInS2c/OF_Hae30Ivv7FgkSXDoqGw/edit?utm_content=DAGS0SInS2c&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
+manual tecnico
+https://www.canva.com/design/DAGS16CEPlU/NUvw08_2dPG5qrO17PqM1w/edit?utm_content=DAGS16CEPlU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
