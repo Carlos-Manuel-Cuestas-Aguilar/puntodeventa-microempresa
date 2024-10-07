@@ -1,58 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, TextInput, Button, View, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Formik } from 'formik';
-import axiosRoute from '../../axiosRoute'; // Asegúrate de tener axiosRoute configurado
+import { apiAxios, route } from '../../apiAxios_route';
+
 export default function HomeScreen() {
-  const [proveedores, setProveedores] = useState([]);
-
-  // Función para obtener proveedores
-  function getProveedores() {
-    axiosRoute.get('proveedores.index').then(response => {
-      setProveedores(response.data);
-    });
-  }
-
-  // Función para cerrar sesión
-  function logout() {
-    axiosRoute.post('logout').then(() => {
-      axiosRoute.refreshToken();
-    });
-  }
-
-  useEffect(() => {
-    const checkToken = async () => {
-      console.log("Es valida la token:", await axiosRoute.isValidToken());
-    }
-
-    checkToken();
-  }, []);
+  const [errorMessage, setErrorMessage] = useState({}); // Estado para los mensajes de error
 
   return (
-    <View style={{ flex: 1 }}>
-        <Button
-        title="Volver a Home"
-        onPress={() => navigation.navigate('menu')} // Vuelve a la pantalla anterior
+    <View style={styles.container}>
+      {/* Logo o imagen de cabecera */}
+      <Image
+        source={require('../../assets/images/favicon.png')} // Agrega tu propio logo aquí
+        style={styles.logo}
       />
+
+      <Text style={styles.title}>Bienvenido</Text>
+      <Text style={styles.subtitle}>Inicia sesión para continuar</Text>
+
       {/* Formulario de inicio de sesión */}
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={async (values) => {
-          axiosRoute.post('login', null, values).then(response => {
-            axiosRoute.refreshToken(response.data.token);
-          });
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            const response = await apiAxios.post(route('login'), values);
+            apiAxios.refreshToken(response.data.token);
+            resetForm();
+            setErrorMessage({}); // Limpiar los errores si la autenticación es exitosa
+          } catch (error) {
+            // Capturar los errores de validación de Laravel
+            if (error.response && error.response.data.errors) {
+              setErrorMessage(error.response.data.errors); // Guardamos los errores
+            } else {
+              setErrorMessage({ general: 'Error al conectar con el servidor.' });
+            }
+          }
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View style={styles.form}>
-            <Text>Correo</Text>
+            <Text style={styles.label}>Correo</Text>
             <TextInput
               style={styles.input}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
               placeholder="Ingresa tu correo"
+              placeholderTextColor="#a9a9a9"
             />
-            <Text>Contraseña</Text>
+            {errorMessage.email && <Text style={styles.errorText}>{errorMessage.email[0]}</Text>}
+
+            <Text style={styles.label}>Contraseña</Text>
             <TextInput
               style={styles.input}
               onChangeText={handleChange('password')}
@@ -60,60 +57,93 @@ export default function HomeScreen() {
               value={values.password}
               secureTextEntry
               placeholder="Ingresa tu contraseña"
+              placeholderTextColor="#a9a9a9"
             />
-            <Button onPress={handleSubmit} title="Iniciar Sesión" />
+            {errorMessage.password && <Text style={styles.errorText}>{errorMessage.password[0]}</Text>}
+
+            {errorMessage.general && <Text style={styles.errorText}>{errorMessage.general}</Text>}
+
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Iniciar Sesión</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.footerText}>
+              ¿Olvidaste tu contraseña? <Text style={styles.link}>Recupérala aquí</Text>
+            </Text>
           </View>
         )}
       </Formik>
-
-      {/* Botón para obtener proveedores */}
-      <Button onPress={getProveedores} title="Obtener proveedores" />
-
-      {/* Mostrar proveedores */}
-      <ScrollView style={styles.proveedoresList}>
-        {proveedores.map(proveedor => (
-          <Text key={proveedor.id}>{proveedor.nombre}</Text>
-        ))}
-      </ScrollView>
-
-      {/* Botón para cerrar sesión */}
-      <Button onPress={logout} title='Cerrar Sesión' />
-
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  form: {
-    padding: 16,
-    backgroundColor: '#fff',
+  container: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 20, 
+    backgroundColor: '#f0f8ff' // Azul claro
   },
-  input: {
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
+  logo: {
+    width: 100, 
+    height: 100, 
+    marginBottom: 30
   },
-  proveedoresList: {
-    marginTop: 16,
-    paddingHorizontal: 16,
+  title: { 
+    fontSize: 28, 
+    fontWeight: 'bold', 
+    color: '#4682b4', 
+    marginBottom: 5, 
+    textAlign: 'center'
   },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  subtitle: {
+    fontSize: 16, 
+    color: '#6c757d', 
+    marginBottom: 20, 
+    textAlign: 'center'
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  form: { 
+    width: '100%', 
+    maxWidth: 400 
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  label: {
+    fontSize: 16, 
+    color: '#4682b4', 
+    marginBottom: 5 
   },
+  input: { 
+    height: 45, 
+    borderColor: '#b0c4de', 
+    borderWidth: 1, 
+    borderRadius: 8, 
+    paddingLeft: 15, 
+    marginBottom: 15, 
+    backgroundColor: '#fff'
+  },
+  button: {
+    backgroundColor: '#4682b4', 
+    paddingVertical: 12, 
+    borderRadius: 8, 
+    marginBottom: 15
+  },
+  buttonText: {
+    color: '#fff', 
+    textAlign: 'center', 
+    fontSize: 18
+  },
+  footerText: {
+    fontSize: 14, 
+    color: '#6c757d', 
+    textAlign: 'center'
+  },
+  link: {
+    color: '#4682b4', 
+    fontWeight: 'bold'
+  },
+  errorText: {
+    color: 'red', 
+    marginBottom: 10, 
+    textAlign: 'center'
+  }
 });
